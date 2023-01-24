@@ -14,7 +14,6 @@ const CarouselView = (props) => {
     <Carousel
       autoplay={true}
         layout='default'
-        layoutCardOffset={`10`}
         ref={CarouselRef}
         data={props.product.images}
         renderItem={({ item, index }) => (

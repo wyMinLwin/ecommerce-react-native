@@ -1,40 +1,30 @@
 import { View, Text, SafeAreaView } from 'react-native'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DataContext } from '../Context/context'
 import CardItem from '../components/Global/CardItem';
-import { FlashList } from "@shopify/flash-list";
+import Home from '../components/Home/Home';
+import Loading from '../components/Global/LoadingPlaceholder';
 
 
 const HomeScreen = () => {
+  const [isLoading,setIsLoading] = useState(true);
   const {data,setData} = useContext(DataContext);
    useEffect(() => {
     fetch("https://dummyjson.com/products")
       .then(res => res.json())
-      .then(res => setData({
+      .then(res => {
+        setData({
         product_data : res,
         data_exist : true
-      }));
+        })
+        setIsLoading(prevLoading => prevLoading=false);
+      });
    },[])
    
   return (
 
     <SafeAreaView className='flex-1'> 
-      <FlashList 
-        data={data.product_data.products}
-        estimatedItemSize={100}
-        renderItem={({item,index}) => (
-          index === 0 ?
-          <>
-            <View className='p-2 mx-auto'>
-              <Text className='text-2xl text-purple-500 font-bold h1'>
-                Top Sellers of 2023!
-              </Text>
-            </View>
-            <CardItem product={item} />
-          </>
-          : <CardItem product={item} />
-        )}
-      />
+      {isLoading ? <Loading /> : <Home data={data} />}
     </SafeAreaView>
   )
 }

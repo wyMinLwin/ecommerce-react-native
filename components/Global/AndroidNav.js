@@ -6,15 +6,20 @@ import HomeStack from '../../routes/HomeStack'
 import CategoriesStack from '../../routes/CategoriesStack'
 import CartStack from '../../routes/CartStack';
 
+
 const Tab = createMaterialTopTabNavigator();
 
-const AndroidNav = () => {
-    const insets = useSafeAreaInsets();
+
+const AndroidNav = ({swipe}) => {
+  const insets = useSafeAreaInsets();
+  // console.log(nav.current?.getCurrentRoute().name)
+  
   return (
     <Tab.Navigator
     style={{ paddingTop: insets.top }}
     initialRouteName='Home'
     screenOptions={({route}) => ({
+      swipeEnabled: swipe,
       tabBarActiveTintColor: '#872dd6',
       tabBarInactiveTintColor: ({color}) => (color),
       tabBarIndicatorStyle : {

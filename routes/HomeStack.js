@@ -2,6 +2,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
+import { Platform } from 'react-native'
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ const HomeStack = () => {
         />
         <Stack.Screen name='DetailStack' component={DetailScreen}
             options={({route}) => ({
+                headerShown: Platform.OS === 'ios' ? true : false,
                 title: route.params.title,
             })}
         />
